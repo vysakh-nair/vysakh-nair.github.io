@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autonomous systems — Senpi · Vysakh G Nair</title>
+<meta name="description" content="How do you make AI trustworthy when it controls money? Designing the trust layer around an autonomous trading system.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Instrument+Sans:ital,wght@0,400..700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='none' stroke='%233742C8' stroke-width='10'/><circle cx='50' cy='14' r='11' fill='%23191A1E'/></svg>">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="nav__name" href="index.html">Vysakh G Nair <span>— Product Designer</span></a>
+    <nav class="nav__links">
+      <a class="nav__link" href="index.html#evolution">← The evolution</a>
+      <a class="nav__link nav__link--map" href="resume.html">Résumé</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<section class="case-hero">
+  <div class="wrap">
+    <span class="case-hero__chapter">Autonomous systems — Senpi</span>
+    <h1>How do you make AI trustworthy <em class="serif-i accent">when it controls money?</em></h1>
+    <p class="case-hero__standfirst">Senpi is an AI-native trading platform for Hyperliquid perpetuals — describe a strategy in plain English and an AI agent builds, funds, runs and protects it. But the more the AI could do, the less users understood what it was doing. As co-founder and sole product designer, I designed the experience around making autonomous trading visible, understandable and controllable.</p>
+    <div class="case-hero__facts">
+      <span class="kicker">Role — Co-founder · Sole product designer</span>
+      <span class="kicker">2025–present</span>
+      <span class="kicker">The flagship problem</span>
+    </div>
+    <div class="case-end__metrics" style="margin-top:32px">
+      <div class="metric"><span class="metric__big">1M+</span><span class="metric__label">agent-executed trades</span></div>
+      <div class="metric"><span class="metric__big">$418M</span><span class="metric__label">trading volume</span></div>
+      <div class="metric"><span class="metric__big">~1% → 11%</span><span class="metric__label">signup-to-funded</span></div>
+    </div>
+    <figure class="fig rv" style="margin-top:44px">
+      <div class="shot"><img src="assets/senpi/web-landing.png" alt="Senpi — web app" loading="lazy"></div>
+      <figcaption>Senpi on the web — describe a thesis, watch the agent work.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= PROBLEM ================= -->
+<section class="case-section case-section--rule">
+  <div class="wrap">
+    <p class="case-label">The problem</p>
+    <h2>Users could see the outcome. They couldn't see the thinking.</h2>
+    <div class="case-body">
+      <p>A normal trading product asks <em>“what do you want to do?”</em> An autonomous system asks <em>“what should the system do for you?”</em> That creates a trust gap: an agent could be actively scanning markets, evaluating opportunities or intentionally waiting — but to the user, all three states looked exactly the same. <strong style="color:var(--ink)">Nothing is happening.</strong></p>
+      <p>We saw the gap through the signup → funding funnel, customer conversations, support questions, user behavior, and agent telemetry that was never surfaced in the product. The strongest signal was activation:</p>
+    </div>
+    <div class="funnel rv" style="margin-top:32px">
+      <div class="funnel__row">
+        <span class="funnel__label">Signed up</span>
+        <div class="funnel__bar-wrap"><div class="funnel__bar" data-w="100%"></div><span class="funnel__val">100%</span></div>
+      </div>
+      <div class="funnel__row">
+        <span class="funnel__label">Funded</span>
+        <div class="funnel__bar-wrap"><div class="funnel__bar" data-w="2.5%"></div><span class="funnel__val">~1%</span></div>
+      </div>
+      <div class="funnel__row">
+        <span class="funnel__label">Of funded, traded</span>
+        <div class="funnel__bar-wrap"><div class="funnel__bar funnel__bar--accent" data-w="100%"></div><span class="funnel__val" style="color:var(--paper)">~100%</span></div>
+      </div>
+    </div>
+    <div class="case-body">
+      <p>People who crossed the funding boundary were willing to use the product. The bigger problem was getting users comfortable enough to cross that boundary.</p>
+    </div>
+    <div class="decision rv">
+      <div class="decision__row"><span class="decision__k">Problem</span><span class="decision__v">Users were being asked to trust an autonomous system with money before they could understand how it behaved.</span></div>
+      <div class="decision__row"><span class="decision__k">Evidence</span><span class="decision__v">~1% signup-to-funded conversion, support questions, customer conversations, and agent activity that wasn't visible to users.</span></div>
+      <div class="decision__row"><span class="decision__k">Decision</span><span class="decision__v">Make the agent's behavior visible, explain its decisions, and give users meaningful control over consequential actions.</span></div>
+      <div class="decision__row"><span class="decision__k">Tradeoff</span><span class="decision__v">More transparency could easily become overwhelming telemetry. We focused on meaningful decisions rather than exposing everything the agent was doing.</span></div>
+      <div class="decision__row"><span class="decision__k">Result</span><span class="decision__v">Signup-to-funded conversion increased from <strong>~1% → 11%</strong> — attributed to the broader body of onboarding, funding and trust work, not a single feature. <span class="chip chip--validate">VALIDATE — cohort dates</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 01 THE MONEY MOMENT ================= -->
+<section class="case-section case-section--rule">
+  <div class="wrap">
+    <p class="case-label">01 — The money moment</p>
+    <h2>Trust is decided at the deposit screen.</h2>
+    <div class="case-body">
+      <p>The funding step used to be a bare QR code, a wallet address and a row of network chips — everything technically necessary, and nothing a nervous person actually needed. Users were being asked to move real money into a system they'd known for five minutes. So we rebuilt the moment around the questions people were silently asking:</p>
+    </div>
+    <div class="trust-grid" style="margin-top:36px">
+      <div class="trust-item rv">
+        <h3>“Is my money safe?”</h3>
+        <p>A self-custody trust block sits directly above the QR: this wallet is yours, secured by Privy — only you hold the key, and you can withdraw anytime.</p>
+      </div>
+      <div class="trust-item rv">
+        <h3>“What can the agent actually do?”</h3>
+        <p>Clear boundaries where they matter: the agent can trade with your permission — it can never withdraw or transfer. Capability limits stated as facts, not marketing.</p>
+      </div>
+      <div class="trust-item rv">
+        <h3>“Who is behind this?”</h3>
+        <p>A quiet investor strip at the moment of maximum fear — reputation signals exactly where the hesitation happens, not sprayed across the site.</p>
+      </div>
+      <div class="trust-item rv">
+        <h3>“Is my account protected?”</h3>
+        <p>Multi-factor authentication, added via Privy, around sign-in and consequential account actions — so the wallet users were being asked to trust was visibly protected.</p>
+      </div>
+    </div>
+    <div class="case-body" style="margin-top:32px">
+      <p>The same restraint applied outside the modal: one muted self-custody line on the balances page, tooltips where terms needed them — and deliberately no banners. <strong style="color:var(--ink)">Over-reassurance reads as nervousness.</strong></p>
+    </div>
+    <div class="gallery gallery--2 rv" style="max-width:720px">
+      <figure class="fig">
+        <div class="phone"><img src="assets/senpi/fund-widget.png" alt="Fund wallet — trust block" loading="lazy"></div>
+        <figcaption>The funding ask — trust block first.</figcaption>
+      </figure>
+      <figure class="fig">
+        <div class="phone"><img src="assets/senpi/mfa.png" alt="Enable MFA" loading="lazy"></div>
+        <figcaption>MFA via Privy — only you can move funds.</figcaption>
+      </figure>
+    </div>
+    <div class="phone-row rv" style="margin-top:32px">
+      <div class="phone"><img src="assets/senpi/deposit.png" alt="Deposit flow" loading="lazy"></div>
+      <div class="phone"><img src="assets/senpi/fund-wallet.png" alt="Fund wallet" loading="lazy"></div>
+      <div class="phone"><img src="assets/senpi/funded.png" alt="After funding — put it to work" loading="lazy"></div>
+    </div>
+    <div class="pull rv" style="margin-top:36px">Reassure at the moment of fear. <em>Stay quiet everywhere else.</em></div>
+  </div>
+</section>
+
+<!-- ================= 02 VISIBILITY ================= -->
+<section class="case-section case-section--rule">
+  <div class="wrap">
+    <p class="case-label">02 — Visibility</p>
+    <h2>First, users needed to know the agent was actually working.</h2>
+    <div class="case-body">
+      <p>An autonomous agent makes hundreds of decisions that never become trades:</p>
+    </div>
+    <div class="flow rv" style="margin-top:20px">
+      <span class="flow__step">Scan</span><span class="flow__arrow">→</span>
+      <span class="flow__step">Evaluate</span><span class="flow__arrow">→</span>
+      <span class="flow__step">Reject</span><span class="flow__arrow">→</span>
+      <span class="flow__step">Wait</span><span class="flow__arrow">→</span>
+      <span class="flow__step">Re-evaluate</span>
+    </div>
+    <div class="case-body" style="margin-top:20px">
+      <p>If the interface only shows trades, users see “nothing happened.” So I designed <strong style="color:var(--ink)">View All Scans</strong> — a decision timeline that surfaces meaningful activity instead of raw telemetry: what the agent considered, what it acted on, what it skipped and why, errors, fills and strategy state.</p>
+    </div>
+    <div class="gallery gallery--2 gallery--offset rv">
+      <figure class="fig">
+        <div class="shot shot--web"><img src="assets/senpi/live-scans.png" alt="Live scans decision timeline" loading="lazy"></div>
+        <figcaption>The decision timeline — every scan, curated.</figcaption>
+      </figure>
+      <figure class="fig fig--loupe">
+        <div class="loupe">
+          <span class="loupe__tether"></span>
+          <span class="loupe__badge"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg></span>
+          <div class="shot"><img src="assets/senpi/meta-detail.png" alt="Opened META position, expanded" loading="lazy"></div>
+        </div>
+        <figcaption>Under the magnifier — the opened META position: signal, risk gates, fill, and why it's in.</figcaption>
+      </figure>
+    </div>
+    <div class="pull rv" style="margin-top:36px">Don't show everything the agent did. <em>Show enough to understand what it is doing.</em></div>
+  </div>
+</section>
+
+<!-- ================= 02 UNDERSTANDING ================= -->
+<section class="case-section case-section--rule">
+  <div class="wrap">
+    <p class="case-label">03 — Understanding</p>
+    <h2>Visibility wasn't enough. Users needed to understand the decisions.</h2>
+    <div class="case-body">
+      <p>Seeing that an agent opened a position doesn't answer <em>why</em>. So I designed positions to explain themselves:</p>
+    </div>
+    <div class="xlate rv" style="margin-top:28px">
+      <div class="xlate-row"><b>Thesis</b><i>→</i><span>Why does this position exist?</span></div>
+      <div class="xlate-row"><b>Evidence</b><i>→</i><span>What signals led to the decision?</span></div>
+      <div class="xlate-row"><b>Kill condition</b><i>→</i><span>What would make the strategy abandon the position?</span></div>
+      <div class="xlate-row"><b>Conviction</b><i>→</i><span>How confident is the system?</span></div>
+    </div>
+    <figure class="fig rv" style="margin-top:48px;max-width:680px">
+      <div class="loupe loupe--r">
+        <span class="loupe__badge"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg></span>
+        <div class="shot"><img src="assets/senpi/meta-thesis.png" alt="Per-trade thesis, kill condition and conviction" loading="lazy"></div>
+      </div>
+      <figcaption>A position explaining itself — why I'm in, what makes it wrong, and 6/10 conviction.</figcaption>
+    </figure>
+    <div class="case-body" style="margin-top:36px">
+      <p>The goal was to change the interpretation of a losing trade — from <em>“the AI lost my money”</em> to <strong style="color:var(--ink)">“the strategy believed X, but X was invalidated by Y.”</strong> That distinction matters when the system is autonomous.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 CONTROL ================= -->
+<section class="case-section case-section--rule">
+  <div class="wrap">
+    <p class="case-label">04 — Control</p>
+    <h2>Trust doesn't mean giving users control over everything.</h2>
+    <div class="case-body">
+      <p>The existing permission model could interrupt user-initiated actions while failing to provide the right intervention around more consequential autonomous ones. So I reframed permissions around <strong style="color:var(--ink)">consequence</strong> rather than generic technical access — instead of “can this agent use this tool?”, the experience asks <em>“this is what the agent is about to do. Do you want it to proceed?”</em></p>
+    </div>
+    <figure class="fig rv" style="margin-top:40px">
+      <div class="shot shot--web"><img src="assets/senpi/allow-ux.png" alt="Consequence-based approval UX" loading="lazy"></div>
+      <figcaption>The approval moment, reframed: what the agent is about to do — not which tool it needs.</figcaption>
+    </figure>
+    <div class="pull rv" style="margin-top:36px">Intervene where the <em>consequence</em> matters, not where the implementation happens to require permission.</div>
+  </div>
+</section>
+
+<!-- ================= 04 COLLABORATION ================= -->
+<section class="case-section case-section--rule">
+  <div class="wrap">
+    <p class="case-label">05 — Collaboration</p>
+    <h2>The end state wasn't AI autonomy. It was AI collaboration.</h2>
+    <div class="case-body">
+      <p>Once users could see what the agent was doing, understand why, and intervene when necessary, the relationship could evolve beyond “AI trades for me” toward <strong style="color:var(--ink)">“AI trades with me.”</strong></p>
+    </div>
+    <div class="loop rv" style="margin-top:28px">
+      <span class="loop__step">Build</span><span class="loop__arrow">→</span>
+      <span class="loop__step">Run</span><span class="loop__arrow">→</span>
+      <span class="loop__step">Review</span><span class="loop__arrow">→</span>
+      <span class="loop__step">Learn</span>
+    </div>
+    <div class="trust-grid" style="margin-top:32px">
+      <div class="trust-item rv"><h3>Build</h3><p>Understand how the agent constructs a strategy.</p></div>
+      <div class="trust-item rv"><h3>Run</h3><p>Watch it operate and intervene when the decision matters.</p></div>
+      <div class="trust-item rv"><h3>Review</h3><p>Understand what happened and why.</p></div>
+      <div class="trust-item rv"><h3>Learn</h3><p>Use corrections and preferences to improve future behavior.</p></div>
+    </div>
+    <figure class="fig rv" style="margin-top:40px">
+      <div class="shot shot--web"><img src="assets/senpi/strategy-builder.png" alt="Strategy builder" loading="lazy"></div>
+      <figcaption>Watching the agent construct a strategy — universe, signals, entries, exits, risk gates.</figcaption>
+    </figure>
+
+    <div style="margin-top:64px">
+      <h2 style="font-size:clamp(20px,2.4vw,28px)">Same product, one year apart.</h2>
+      <div class="ba rv">
+        <div>
+          <p class="ba__tag">Before — 2024</p>
+          <div class="phone-row">
+            <div class="appshot"><img src="assets/senpi/old-1.png" alt="Old Senpi app" loading="lazy"></div>
+            <div class="appshot"><img src="assets/senpi/old-2.png" alt="Old Senpi app" loading="lazy"></div>
+          </div>
+        </div>
+        <div>
+          <p class="ba__tag">Now</p>
+          <div class="phone-row">
+            <div class="appshot"><img src="assets/senpi/app-5.png" alt="Senpi app now" loading="lazy"></div>
+            <div class="appshot"><img src="assets/senpi/app-6.png" alt="Senpi app now" loading="lazy"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="rv" style="margin-top:24px;color:var(--ink-70);font-size:15px">Still in flight: strategy-build previews, durable user memory, and proactive reviews — designed, not yet shipped.</p>
+  </div>
+</section>
+
+<!-- ================= THE TRUST MODEL ================= -->
+<section class="case-section case-section--rule">
+  <div class="wrap">
+    <p class="case-label">The product evolution</p>
+    <h2>The trust model: earned at the deposit screen, deepened in four layers.</h2>
+    <div class="xlate rv" style="margin-top:32px">
+      <div class="xlate-row"><b>Visibility</b><i>→</i><span>What is the agent doing?</span></div>
+      <div class="xlate-row"><b>Understanding</b><i>→</i><span>Why is it doing it?</span></div>
+      <div class="xlate-row"><b>Control</b><i>→</i><span>When can I intervene?</span></div>
+      <div class="xlate-row"><b>Collaboration</b><i>→</i><span>How can we get better together?</span></div>
+    </div>
+    <div class="case-body" style="margin-top:24px">
+      <p>This became the core design framework for autonomous trading.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OUTCOMES ================= -->
+<section class="case-section case-section--rule">
+  <div class="wrap">
+    <p class="case-label">Outcomes</p>
+    <div class="case-end__metrics" style="margin-top:12px">
+      <div class="metric"><span class="metric__big">1M+</span><span class="metric__label">agent-executed trades</span></div>
+      <div class="metric"><span class="metric__big">$418M</span><span class="metric__label">trading volume since relaunch</span></div>
+      <div class="metric"><span class="metric__big">~1% → 11%</span><span class="metric__label">signup-to-funded conversion</span></div>
+      <div class="metric"><span class="metric__big">~100%</span><span class="metric__label">of funded users went on to trade</span></div>
+    </div>
+    <div class="case-body" style="margin-top:32px">
+      <p>The most important result wasn't simply more activity. It was reducing the trust gap between <em>“the AI is doing something”</em> and <strong style="color:var(--ink)">“I understand what the AI is doing.”</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REFLECTION ================= -->
+<section class="case-end">
+  <div class="wrap">
+    <p class="case-label">What I learned</p>
+    <h2>Make autonomy understandable before making it powerful.</h2>
+    <p>Traditional software asks users to understand the interface and make the decision. Autonomous software makes the decision for them — which changes the designer's job. The interface has to answer: what is happening, why is it happening, what happens next, when can I intervene — and above all, how do I know I can trust this system with something consequential? For Senpi, the answer wasn't more automation. It was better visibility, explanation and control around the automation. I didn't design an AI trading platform — I designed the trust layer around an autonomous system that controls money.</p>
+  </div>
+</section>
+
+<a class="next-chapter" href="moxie.html">
+  <div class="wrap">
+    <span class="kicker">Next — Complex markets</span>
+    <h2>How do you make crypto understandable? →</h2>
+  </div>
+</a>
+
+</main>
+
+<footer class="footer" style="border-top:1px solid var(--line)">
+  <div class="wrap footer__inner">
+    <div class="footer__id"><b>Vysakh G Nair</b><span>Founding product designer</span></div>
+    <nav class="footer__nav">
+      <a href="index.html#evolution">Evolution</a>
+      <a href="index.html#problems">Problems</a>
+      <a href="about.html">About</a>
+      <a href="index.html?map=1">Product Map</a>
+      <a href="resume.html">Résumé</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="js/case.js"></script>
+<script src="js/ph.js"></script>
+</body>
+</html>

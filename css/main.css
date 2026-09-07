@@ -1385,6 +1385,7 @@ table.compare { width: 100%; border-collapse: collapse; font-size: 14.5px; min-w
   gap: clamp(24px, 4vw, 56px);
 }
 .about-offhours .edu p { margin-top: 8px; color: var(--ink-70); font-size: 15px; }
+.about-offhours .edu + .edu { margin-top: 0; }
 @media (max-width: 760px) { .about-offhours { grid-template-columns: 1fr; gap: 22px; } }
 
 /* ---------- loader — departure-board name resolve ---------- */

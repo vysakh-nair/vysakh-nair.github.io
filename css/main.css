@@ -1497,3 +1497,23 @@ html.sh-opening::after  { transform: translateY(101%); }
 
 /* hero stays truly centered; the evolution track tucks up under it */
 .evo { margin-top: -16vh; }
+
+
+/* about — kind words */
+.kind {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(28px, 4vw, 56px) clamp(32px, 5vw, 72px);
+}
+.kind__q blockquote {
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+}
+.kind__q figcaption {
+  margin-top: 12px;
+  font-size: 13.5px;
+  color: var(--ink-50);
+}
+@media (max-width: 720px) { .kind { grid-template-columns: 1fr; gap: 28px; } }

@@ -136,8 +136,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 500; letter-spacing: -0.01e
 /* ---------- hero ---------- */
 
 .hero {
-  min-height: 100vh;
-  min-height: 100svh;
+  min-height: 82vh;
+  min-height: 82svh;
   display: flex;
   align-items: center;
   padding-top: 64px;   /* nav height — keeps the block optically centered */

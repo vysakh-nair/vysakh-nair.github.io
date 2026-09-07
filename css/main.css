@@ -170,8 +170,18 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 500; letter-spacing: -0.01e
   max-width: 56ch;
 }
 .hero__ctas { margin-top: 38px; display: flex; flex-wrap: wrap; gap: 12px; }
+.hero__go { margin-top: 52px; display: flex; align-items: center; gap: 18px; }
+.hero__cta {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.hero__cta span { font-weight: 400; color: var(--ink-50); transition: color 0.2s ease; }
+.hero__cta:hover, .hero__cta:hover span { color: var(--accent); }
 .hero__cue {
-  margin-top: 52px;
   width: 1px;
   height: 48px;
   background: var(--line);

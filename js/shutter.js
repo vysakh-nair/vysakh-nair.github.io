@@ -65,13 +65,13 @@
   function openUp() {
     if (dismissed) return;
     dismissed = true;
-    initReveals();
     html.classList.add("sh-opening");
     if (overlay) overlay.classList.add("out");
     setTimeout(function () {
       html.classList.remove("sh-covered", "sh-opening");
       if (overlay) { overlay.remove(); overlay = null; }
-    }, 680);
+      initReveals();   // sequence the page in only after the bars have parted
+    }, 620);
   }
 
   function requestOpen() {
@@ -99,7 +99,7 @@
     ];
     var els = [];
     document.querySelectorAll(sels.join(",")).forEach(function (el) {
-      if (el.classList.contains("rv") || el.closest(".evo") || el.classList.contains("rv2")) return;
+      if (el.classList.contains("rv") || el.closest(".evo")) return;
       el.classList.add("rv2");
       els.push(el);
     });
@@ -110,17 +110,26 @@
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
         var el = e.target;
-        el.style.setProperty("--rvd", (Math.min(batch++, 6) * 80) + "ms");
+        el.style.setProperty("--rvd", (Math.min(batch++, 6) * 130) + "ms");
         el.classList.add("in");
         lastT = now;
         setTimeout(function () { el.classList.remove("rv2", "in"); el.style.removeProperty("--rvd"); }, 1500);
         io.unobserve(el);
       });
-    }, { threshold: 0.1, rootMargin: "0px 0px -6% 0px" });
+    }, { threshold: 0.18, rootMargin: "0px 0px -12% 0px" });
     els.forEach(function (el) { io.observe(el); });
   }
 
+  function preHide() {
+    if (reduce) return;
+    var sels = ["main .hero .wrap > *", "main .case-hero .wrap > *"];
+    document.querySelectorAll(sels.join(",")).forEach(function (el) {
+      if (!el.classList.contains("rv")) el.classList.add("rv2");
+    });
+  }
+
   if (covered) {
+    preHide();
     buildOverlay();
     start = performance.now();
     if (reduce) {

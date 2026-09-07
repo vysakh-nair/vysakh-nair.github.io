@@ -6,7 +6,7 @@
   }
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.3, rootMargin: "0px 0px -12% 0px" });
   document.querySelectorAll(".rv").forEach(el => io.observe(el));
   document.querySelectorAll(".funnel").forEach(f => {
     const fio = new IntersectionObserver((es) => {

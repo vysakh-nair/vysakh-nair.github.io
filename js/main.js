@@ -568,9 +568,22 @@
 
   /* ---------------- reveals ---------------- */
 
+  // replay the active panel's load-in when the evolution section first scrolls into view
+  if (evoSection && !reduceMotion && "IntersectionObserver" in window) {
+    const evoIO = new IntersectionObserver((es) => {
+      es.forEach(e => {
+        if (!e.isIntersecting) return;
+        const p = $$(".evo__panel")[currentStage];
+        if (p) { p.classList.remove("active"); void p.offsetWidth; p.classList.add("active"); }
+        evoIO.unobserve(e.target);
+      });
+    }, { threshold: 0.35 });
+    evoIO.observe($(".evo__stick") || evoSection);
+  }
+
   const rvIO = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); rvIO.unobserve(e.target); } });
-  }, { threshold: 0.14 });
+  }, { threshold: 0.3, rootMargin: "0px 0px -12% 0px" });
   $$(".rv").forEach(el => rvIO.observe(el));
 
   /* ---------------- funnel bars ---------------- */

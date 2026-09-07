@@ -26,7 +26,10 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var seen = false;
   try { seen = sessionStorage.getItem("vn_loader") === "1"; } catch (e) {}
-  if (seen && !demo) { loader.remove(); return; }
+  var navEntry = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+  var isReload = navEntry ? navEntry.type === "reload" : false;
+  // replay on an explicit refresh; skip only for same-session internal navigation
+  if (seen && !isReload && !demo) { loader.remove(); return; }
 
   var NAME = "VYSAKH NAIR";
   var GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

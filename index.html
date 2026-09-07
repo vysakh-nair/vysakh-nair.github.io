@@ -13,6 +13,84 @@
 </head>
 <body>
 
+<!-- ============ LOADER ============ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__name" id="ldName"></div>
+  <div class="loader__rule"><span id="ldRule"></span></div>
+</div>
+<script>
+(function () {
+  var loader = document.getElementById("loader");
+  var qs = new URLSearchParams(location.search);
+  var demo = qs.has("loaderdemo");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var seen = false;
+  try { seen = sessionStorage.getItem("vn_loader") === "1"; } catch (e) {}
+  if (seen && !demo) { loader.remove(); return; }
+
+  var NAME = "VYSAKH NAIR";
+  var GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var nameEl = document.getElementById("ldName");
+  var ruleEl = document.getElementById("ldRule");
+  var cells = [];
+  for (var i = 0; i < NAME.length; i++) {
+    var s = document.createElement("span");
+    if (NAME[i] === " ") { s.className = "sp"; s.textContent = " "; }
+    else { s.textContent = GLYPHS[(Math.random() * 26) | 0]; }
+    nameEl.appendChild(s);
+    cells.push({ el: s, ch: NAME[i], locked: NAME[i] === " " });
+  }
+
+  var start = performance.now(), dismissed = false, resolvedAt = 0;
+
+  function tick(now) {
+    if (dismissed) return;
+    var t = now - start;
+    var allLocked = true;
+    for (var i = 0; i < cells.length; i++) {
+      var c = cells[i];
+      if (c.locked) continue;
+      // each letter locks in sequence; re-scramble loop every 2.6s while still loading
+      var phase = t % 2600;
+      var lockAt = 300 + i * 95;
+      if (phase >= lockAt && phase < 2200) {
+        c.el.textContent = c.ch;
+        c.el.classList.add("on");
+      } else {
+        allLocked = false;
+        c.el.classList.remove("on");
+        if (((now / 45) | 0) % 2 === 0) c.el.textContent = GLYPHS[(Math.random() * 26) | 0];
+      }
+    }
+    ruleEl.style.width = allLocked ? "100%" : "0%";
+    if (allLocked && !resolvedAt) resolvedAt = now;
+    if (!allLocked) resolvedAt = 0;
+    requestAnimationFrame(tick);
+  }
+
+  if (reduce) {
+    for (var j = 0; j < cells.length; j++) { cells[j].el.textContent = cells[j].ch === " " ? " " : cells[j].ch; cells[j].el.classList.add("on"); }
+    ruleEl.style.width = "100%";
+  } else {
+    requestAnimationFrame(tick);
+  }
+
+  function dismiss() {
+    if (dismissed || demo) return;
+    var elapsed = performance.now() - start;
+    var minShow = reduce ? 400 : 1750;   // let one full resolve + sweep play
+    if (elapsed < minShow) { setTimeout(dismiss, minShow - elapsed); return; }
+    dismissed = true;
+    try { sessionStorage.setItem("vn_loader", "1"); } catch (e) {}
+    loader.classList.add("out");
+    setTimeout(function () { loader.remove(); }, 600);
+  }
+  if (document.readyState === "complete") dismiss();
+  else window.addEventListener("load", dismiss);
+  setTimeout(dismiss, 4000);   // hard cap — never trap the visitor
+})();
+</script>
+
 <!-- ============ NAV ============ -->
 <header class="nav">
   <div class="nav__inner">

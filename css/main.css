@@ -1362,3 +1362,49 @@ table.compare { width: 100%; border-collapse: collapse; font-size: 14.5px; min-w
 }
 .about-offhours .edu p { margin-top: 8px; color: var(--ink-70); font-size: 15px; }
 @media (max-width: 760px) { .about-offhours { grid-template-columns: 1fr; gap: 22px; } }
+
+/* ---------- loader — departure-board name resolve ---------- */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--paper);
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  opacity: 1;
+  transition: opacity 0.55s ease;
+}
+.loader.out { opacity: 0; pointer-events: none; }
+.loader__name {
+  font-family: var(--serif);
+  font-size: clamp(30px, 6vw, 58px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  display: flex;
+}
+.loader__name span {
+  display: inline-block;
+  width: 0.9em;
+  text-align: center;
+  color: var(--ink-35);
+  transition: none;   /* unlocking snaps back to grey instantly */
+}
+.loader__name span.sp { width: 0.5em; }
+.loader__name span.on { color: var(--ink); transition: color 0.18s ease; }
+.loader__rule {
+  width: min(280px, 56vw);
+  height: 2px;
+  background: var(--line-soft);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.loader__rule span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.6, 0, 0.2, 1);
+}

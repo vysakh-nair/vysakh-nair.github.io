@@ -386,7 +386,7 @@
     if (legR) legR.setAttribute("transform", `rotate(${-a} 20 38)`);
     if (armL) armL.setAttribute("transform", `rotate(${-a * 0.6} 20 21)`);
     if (armR) armR.setAttribute("transform", `rotate(${a * 0.6} 20 21)`);
-    if (charSvg) charSvg.style.transform = `translateY(${-1.6 * Math.abs(Math.sin(phase))}px)`;
+    if (charSvg) charSvg.style.transform = `translateY(${-1.6 * Math.abs(Math.sin(phase))}px) scaleX(-1)`;   // faces the present, backs into the past
   }
 
   let FROZEN = null;   // ?dev&freeze pins renderP at one stage; resync listeners must respect it

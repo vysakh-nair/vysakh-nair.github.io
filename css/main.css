@@ -1426,8 +1426,8 @@ html::before, html::after {
   pointer-events: none;
   transition: transform 0.55s cubic-bezier(0.72, 0, 0.2, 1);
 }
-html::before { top: 0; transform: translateY(-101%); box-shadow: 0 1px 0 var(--line); }
-html::after  { bottom: 0; transform: translateY(101%); box-shadow: 0 -1px 0 var(--line); }
+html::before { top: 0; transform: translateY(-101%); }
+html::after  { bottom: 0; transform: translateY(101%); }
 html.sh-covered::before, html.sh-closing::before { transform: none; }
 html.sh-covered::after,  html.sh-closing::after  { transform: none; }
 html.sh-opening::before { transform: translateY(-101%); }

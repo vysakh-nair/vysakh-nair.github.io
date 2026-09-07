@@ -624,7 +624,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 500; letter-spacing: -0.01e
   font-size: clamp(23px, 3.1vw, 38px);
   line-height: 1.18;
   letter-spacing: -0.015em;
-  max-width: 22ch;
+  max-width: 34ch;
 }
 .pull em { font-style: italic; color: var(--accent); }
 

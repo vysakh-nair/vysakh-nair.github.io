@@ -10,18 +10,16 @@
   try { fromNav = sessionStorage.getItem("vn_nav") === "1"; sessionStorage.removeItem("vn_nav"); } catch (e) {}
 
   var GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  var WORD = " COMPLEXITY";
   var NAME = "VYSAKH NAIR";
   var overlay = null, ruleEl = null, cells = [];
   var start = 0, dismissed = false, wantOut = false;
 
-  /* timing: direct visits get the full word → name sequence, page-to-page hops a quick resolve */
-  var CYC   = fromNav ? 2400 : 3400;
-  var HOLD  = fromNav ? 2100 : 3050;
-  var LOCK0 = fromNav ? 260  : 950;
+  /* timing: scramble → name resolves; page-to-page hops run a quicker cycle */
+  var CYC   = fromNav ? 2400 : 3000;
+  var HOLD  = fromNav ? 2100 : 2700;
+  var LOCK0 = fromNav ? 260  : 500;
   var STEPT = fromNav ? 70   : 90;
-  var WORDT = fromNav ? 0    : 650;
-  var MIN   = fromNav ? 1000 : 1600;
+  var MIN   = fromNav ? 1000 : 1500;
 
   function setCell(c, ch, on) {
     c.el.textContent = ch === " " ? " " : ch;
@@ -37,11 +35,9 @@
     ruleEl = document.createElement("span"); r.appendChild(ruleEl);
     for (var i = 0; i < NAME.length; i++) {
       var sp = document.createElement("span");
-      var ch = fromNav ? GLYPHS[(Math.random() * 26) | 0] : WORD[i];
-      sp.textContent = ch === " " ? " " : ch;
-      if (!fromNav) sp.className = "on";
+      sp.textContent = GLYPHS[(Math.random() * 26) | 0];
       n.appendChild(sp);
-      cells.push({ el: sp, a: WORD[i], b: NAME[i] });
+      cells.push({ el: sp, b: NAME[i] });
     }
     overlay.appendChild(n); overlay.appendChild(r);
     document.body.appendChild(overlay);
@@ -52,8 +48,7 @@
     var t = (now - start) % CYC, nameLocked = true;
     for (var i = 0; i < cells.length; i++) {
       var c = cells[i], lockAt = LOCK0 + i * STEPT;
-      if (t < WORDT) { setCell(c, c.a, true); nameLocked = false; }
-      else if (t >= lockAt && t < HOLD) { setCell(c, c.b, true); }
+      if (t >= lockAt && t < HOLD) { setCell(c, c.b, true); }
       else {
         nameLocked = false;
         if (((now / 45) | 0) % 2 === 0) setCell(c, GLYPHS[(Math.random() * 26) | 0], false);

@@ -1434,3 +1434,5 @@ html.sh-opening::before { transform: translateY(-101%); }
 html.sh-opening::after  { transform: translateY(101%); }
 
 .loader--sh { background: transparent; z-index: 301; pointer-events: auto; }
+.loader--sh .loader__name, .loader--sh .loader__rule { animation: ldFadeIn 1.5s ease-out both; }
+@keyframes ldFadeIn { from { opacity: 0; } to { opacity: 1; } }

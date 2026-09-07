@@ -65,6 +65,7 @@
   function openUp() {
     if (dismissed) return;
     dismissed = true;
+    initReveals();
     html.classList.add("sh-opening");
     if (overlay) overlay.classList.add("out");
     setTimeout(function () {
@@ -81,6 +82,44 @@
     wantOut = true;   // open at the next fully-resolved name
   }
 
+  /* ---- section reveals: every content block rises in as it enters the viewport ---- */
+  var revealsInited = false;
+  function initReveals() {
+    if (revealsInited) return;
+    revealsInited = true;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    var sels = [
+      "main .hero .wrap > *",
+      "main .section .wrap > *",
+      "main .case-section .wrap > *",
+      "main .case-hero .wrap > *",
+      "main .case-end .wrap > *",
+      "main.resume > *",
+      "main.resume .resume-section > *"
+    ];
+    var els = [];
+    document.querySelectorAll(sels.join(",")).forEach(function (el) {
+      if (el.classList.contains("rv") || el.closest(".evo") || el.classList.contains("rv2")) return;
+      el.classList.add("rv2");
+      els.push(el);
+    });
+    var batch = 0, lastT = 0;
+    var io = new IntersectionObserver(function (entries) {
+      var now = performance.now();
+      if (now - lastT > 350) batch = 0;
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        el.style.setProperty("--rvd", (Math.min(batch++, 6) * 80) + "ms");
+        el.classList.add("in");
+        lastT = now;
+        setTimeout(function () { el.classList.remove("rv2", "in"); el.style.removeProperty("--rvd"); }, 1500);
+        io.unobserve(el);
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -6% 0px" });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
   if (covered) {
     buildOverlay();
     start = performance.now();
@@ -94,6 +133,8 @@
     else window.addEventListener("load", requestOpen);
     setTimeout(openUp, 5000);   // hard cap — never trap the visitor
   }
+
+  if (!covered) initReveals();
 
   /* ---- outgoing: close the shutter on internal link clicks, then navigate ---- */
   document.addEventListener("click", function (ev) {
@@ -116,6 +157,7 @@
   window.addEventListener("pageshow", function (e) {
     if (!e.persisted) return;
     dismissed = true;
+    document.querySelectorAll(".rv2").forEach(function (el) { el.classList.remove("rv2", "in"); });
     if (overlay) { overlay.remove(); overlay = null; }
     if (html.classList.contains("sh-closing") || html.classList.contains("sh-covered")) {
       // restored mid-shutter: play the opening animation instead of snapping

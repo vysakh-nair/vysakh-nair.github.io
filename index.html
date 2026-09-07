@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vysakh G Nair — Founding Product Designer</title>
-<meta name="description" content="I start with the problem. Then I turn complexity into clarity. Founding product designer working across AI, crypto and autonomous systems.">
+<meta name="description" content="I turn complexity into clarity — products people trust. Founding product designer working across AI, crypto and autonomous systems.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Instrument+Sans:ital,wght@0,400..700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -31,66 +31,75 @@
   // replay on an explicit refresh; skip only for same-session internal navigation
   if (seen && !isReload && !demo) { loader.remove(); return; }
 
+  var WORD = " PORTFOLIO ";       // opening word, padded to match name length
   var NAME = "VYSAKH NAIR";
   var GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var nameEl = document.getElementById("ldName");
   var ruleEl = document.getElementById("ldRule");
   var cells = [];
   for (var i = 0; i < NAME.length; i++) {
-    var s = document.createElement("span");
-    if (NAME[i] === " ") { s.className = "sp"; s.textContent = " "; }
-    else { s.textContent = GLYPHS[(Math.random() * 26) | 0]; }
-    nameEl.appendChild(s);
-    cells.push({ el: s, ch: NAME[i], locked: NAME[i] === " " });
+    var sp = document.createElement("span");
+    sp.textContent = WORD[i] === " " ? "\u00A0" : WORD[i];
+    sp.className = "on";
+    nameEl.appendChild(sp);
+    cells.push({ el: sp, a: WORD[i], b: NAME[i] });
+  }
+  function setCell(c, ch, on) {
+    c.el.textContent = ch === " " ? "\u00A0" : ch;
+    c.el.classList.toggle("on", on);
   }
 
-  var start = performance.now(), dismissed = false, resolvedAt = 0;
+  /* cycle: word → scramble → name resolves letter by letter → hold → (loop) */
+  var CYC = 3400;
+  var start = performance.now(), dismissed = false, wantOut = false;
 
   function tick(now) {
     if (dismissed) return;
-    var t = now - start;
-    var allLocked = true;
+    var t = (now - start) % CYC;
+    var nameLocked = true;
     for (var i = 0; i < cells.length; i++) {
       var c = cells[i];
-      if (c.locked) continue;
-      // each letter locks in sequence; re-scramble loop every 2.6s while still loading
-      var phase = t % 2600;
-      var lockAt = 300 + i * 95;
-      if (phase >= lockAt && phase < 2200) {
-        c.el.textContent = c.ch;
-        c.el.classList.add("on");
-      } else {
-        allLocked = false;
-        c.el.classList.remove("on");
-        if (((now / 45) | 0) % 2 === 0) c.el.textContent = GLYPHS[(Math.random() * 26) | 0];
+      var lockAt = 950 + i * 90;
+      if (t < 650) { setCell(c, c.a, true); nameLocked = false; }
+      else if (t >= lockAt && t < 3050) { setCell(c, c.b, true); }
+      else {
+        nameLocked = false;
+        if (((now / 45) | 0) % 2 === 0) setCell(c, GLYPHS[(Math.random() * 26) | 0], false);
+        else c.el.classList.remove("on");
       }
     }
-    ruleEl.style.width = allLocked ? "100%" : "0%";
-    if (allLocked && !resolvedAt) resolvedAt = now;
-    if (!allLocked) resolvedAt = 0;
+    ruleEl.style.width = nameLocked ? "100%" : "0%";
+    if (wantOut && nameLocked) { fadeOut(); return; }
     requestAnimationFrame(tick);
   }
 
   if (reduce) {
-    for (var j = 0; j < cells.length; j++) { cells[j].el.textContent = cells[j].ch === " " ? " " : cells[j].ch; cells[j].el.classList.add("on"); }
+    for (var j = 0; j < cells.length; j++) setCell(cells[j], cells[j].b, true);
     ruleEl.style.width = "100%";
   } else {
     requestAnimationFrame(tick);
   }
 
-  function dismiss() {
-    if (dismissed || demo) return;
-    var elapsed = performance.now() - start;
-    var minShow = reduce ? 400 : 1750;   // let one full resolve + sweep play
-    if (elapsed < minShow) { setTimeout(dismiss, minShow - elapsed); return; }
+  function fadeOut() {
+    if (dismissed) return;
     dismissed = true;
     try { sessionStorage.setItem("vn_loader", "1"); } catch (e) {}
     loader.classList.add("out");
     setTimeout(function () { loader.remove(); }, 600);
   }
+  function dismiss() {
+    if (demo) return;
+    if (reduce) {
+      var elapsed = performance.now() - start;
+      if (elapsed < 400) { setTimeout(dismiss, 400 - elapsed); return; }
+      fadeOut();
+      return;
+    }
+    wantOut = true;   // tick fades out at the next fully-resolved name
+  }
   if (document.readyState === "complete") dismiss();
   else window.addEventListener("load", dismiss);
-  setTimeout(dismiss, 4000);   // hard cap — never trap the visitor
+  setTimeout(fadeOut, 5000);   // hard cap — never trap the visitor
 })();
 </script>
 
@@ -113,7 +122,7 @@
 <!-- ============ HERO ============ -->
 <section class="hero" data-loc="Top">
   <div class="wrap">
-    <h1>I start with the problem. Then I turn <em>complexity into clarity.</em></h1>
+    <h1 class="hero__one">I turn <em>complexity into clarity</em> — products people trust.</h1>
     <p class="hero__sub">Founding product designer working across AI, crypto, autonomous systems and whatever problem comes next.</p>
     <p class="hero__para">I work closely with founders, engineers, customers and data — from the first unclear brief all the way to the shipped, measured product.</p>
     <div class="hero__cue" aria-hidden="true"><span></span></div>

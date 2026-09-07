@@ -154,6 +154,12 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 500; letter-spacing: -0.01e
   font-weight: 400;
   color: var(--accent);
 }
+.hero h1.hero__one {
+  font-size: clamp(25px, 2.9vw, 42px);
+  max-width: none;
+  letter-spacing: -0.018em;
+}
+@media (min-width: 900px) { .hero h1.hero__one { white-space: nowrap; } }
 .hero__sub {
   margin-top: 26px;
   font-size: clamp(16px, 1.4vw, 18px);

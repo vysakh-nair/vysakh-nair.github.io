@@ -568,13 +568,13 @@
 
   /* ---------------- reveals ---------------- */
 
-  // replay the active panel's load-in when the evolution section first scrolls into view
-  if (evoSection && !reduceMotion && "IntersectionObserver" in window) {
+  // hold the first panel's content hidden until the section scrolls into view, then let it animate in once
+  if (panelsEl && evoSection && !reduceMotion && "IntersectionObserver" in window) {
+    panelsEl.classList.add("evo-hold");
     const evoIO = new IntersectionObserver((es) => {
       es.forEach(e => {
         if (!e.isIntersecting) return;
-        const p = $$(".evo__panel")[currentStage];
-        if (p) { p.classList.remove("active"); void p.offsetWidth; p.classList.add("active"); }
+        panelsEl.classList.remove("evo-hold");
         evoIO.unobserve(e.target);
       });
     }, { threshold: 0.35 });

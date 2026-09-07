@@ -1471,6 +1471,7 @@ html.sh-opening::after  { transform: translateY(101%); }
 
 /* evolution panel — content loads in one by one on each stop */
 @media (prefers-reduced-motion: no-preference) {
+  .evo__panels.evo-hold .evo__panel.active > * { animation: none; opacity: 0; }
   .evo__panel.active > * { opacity: 0; animation: evoPanelIn 0.55s ease forwards; }
   .evo__panel.active > *:nth-child(1) { animation-delay: 0.05s; }
   .evo__panel.active > *:nth-child(2) { animation-delay: 0.13s; }

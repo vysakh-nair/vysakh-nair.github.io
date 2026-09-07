@@ -8,6 +8,8 @@
   var covered = html.classList.contains("sh-covered");
   var fromNav = false;
   try { fromNav = sessionStorage.getItem("vn_nav") === "1"; sessionStorage.removeItem("vn_nav"); } catch (e) {}
+  var navEntry = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+  if (navEntry && navEntry.type === "back_forward") fromNav = true;   // back/forward gets the quick cycle
 
   var GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var NAME = "VYSAKH NAIR";
@@ -112,10 +114,21 @@
 
   /* back/forward restore from bfcache: never stay covered */
   window.addEventListener("pageshow", function (e) {
-    if (e.persisted) {
-      dismissed = true;
+    if (!e.persisted) return;
+    dismissed = true;
+    if (overlay) { overlay.remove(); overlay = null; }
+    if (html.classList.contains("sh-closing") || html.classList.contains("sh-covered")) {
+      // restored mid-shutter: play the opening animation instead of snapping
+      html.classList.remove("sh-closing");
+      html.classList.add("sh-covered");
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          html.classList.add("sh-opening");
+          setTimeout(function () { html.classList.remove("sh-covered", "sh-opening"); }, 680);
+        });
+      });
+    } else {
       html.classList.remove("sh-covered", "sh-opening", "sh-closing");
-      if (overlay) { overlay.remove(); overlay = null; }
     }
   });
 })();

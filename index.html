@@ -4,104 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vysakh G Nair — Founding Product Designer</title>
-<meta name="description" content="I turn complexity into clarity — products people trust. Founding product designer working across AI, crypto and autonomous systems.">
+<meta name="description" content="I turn complexity into clarity. Founding product designer working across AI, crypto and autonomous systems.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Instrument+Sans:ital,wght@0,400..700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='none' stroke='%233742C8' stroke-width='10'/><circle cx='50' cy='14' r='11' fill='%23191A1E'/></svg>">
+<script>document.documentElement.classList.add("sh-covered");</script>
 </head>
 <body>
 
-<!-- ============ LOADER ============ -->
-<div class="loader" id="loader" aria-hidden="true">
-  <div class="loader__name" id="ldName"></div>
-  <div class="loader__rule"><span id="ldRule"></span></div>
-</div>
-<script>
-(function () {
-  var loader = document.getElementById("loader");
-  var qs = new URLSearchParams(location.search);
-  var demo = qs.has("loaderdemo");
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var seen = false;
-  try { seen = sessionStorage.getItem("vn_loader") === "1"; } catch (e) {}
-  var navEntry = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
-  var isReload = navEntry ? navEntry.type === "reload" : false;
-  // replay on an explicit refresh; skip only for same-session internal navigation
-  if (seen && !isReload && !demo) { loader.remove(); return; }
-
-  var WORD = " PORTFOLIO ";       // opening word, padded to match name length
-  var NAME = "VYSAKH NAIR";
-  var GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  var nameEl = document.getElementById("ldName");
-  var ruleEl = document.getElementById("ldRule");
-  var cells = [];
-  for (var i = 0; i < NAME.length; i++) {
-    var sp = document.createElement("span");
-    sp.textContent = WORD[i] === " " ? "\u00A0" : WORD[i];
-    sp.className = "on";
-    nameEl.appendChild(sp);
-    cells.push({ el: sp, a: WORD[i], b: NAME[i] });
-  }
-  function setCell(c, ch, on) {
-    c.el.textContent = ch === " " ? "\u00A0" : ch;
-    c.el.classList.toggle("on", on);
-  }
-
-  /* cycle: word → scramble → name resolves letter by letter → hold → (loop) */
-  var CYC = 3400;
-  var start = performance.now(), dismissed = false, wantOut = false;
-
-  function tick(now) {
-    if (dismissed) return;
-    var t = (now - start) % CYC;
-    var nameLocked = true;
-    for (var i = 0; i < cells.length; i++) {
-      var c = cells[i];
-      var lockAt = 950 + i * 90;
-      if (t < 650) { setCell(c, c.a, true); nameLocked = false; }
-      else if (t >= lockAt && t < 3050) { setCell(c, c.b, true); }
-      else {
-        nameLocked = false;
-        if (((now / 45) | 0) % 2 === 0) setCell(c, GLYPHS[(Math.random() * 26) | 0], false);
-        else c.el.classList.remove("on");
-      }
-    }
-    ruleEl.style.width = nameLocked ? "100%" : "0%";
-    if (wantOut && nameLocked) { fadeOut(); return; }
-    requestAnimationFrame(tick);
-  }
-
-  if (reduce) {
-    for (var j = 0; j < cells.length; j++) setCell(cells[j], cells[j].b, true);
-    ruleEl.style.width = "100%";
-  } else {
-    requestAnimationFrame(tick);
-  }
-
-  function fadeOut() {
-    if (dismissed) return;
-    dismissed = true;
-    try { sessionStorage.setItem("vn_loader", "1"); } catch (e) {}
-    loader.classList.add("out");
-    setTimeout(function () { loader.remove(); }, 600);
-  }
-  function dismiss() {
-    if (demo) return;
-    if (reduce) {
-      var elapsed = performance.now() - start;
-      if (elapsed < 400) { setTimeout(dismiss, 400 - elapsed); return; }
-      fadeOut();
-      return;
-    }
-    wantOut = true;   // tick fades out at the next fully-resolved name
-  }
-  if (document.readyState === "complete") dismiss();
-  else window.addEventListener("load", dismiss);
-  setTimeout(fadeOut, 5000);   // hard cap — never trap the visitor
-})();
-</script>
 
 <!-- ============ NAV ============ -->
 <header class="nav">
@@ -122,7 +34,7 @@
 <!-- ============ HERO ============ -->
 <section class="hero" data-loc="Top">
   <div class="wrap">
-    <h1 class="hero__one">I turn <em>complexity into clarity</em> — products people trust.</h1>
+    <h1 class="hero__one">I turn <em>complexity into clarity.</em></h1>
     <p class="hero__sub">Founding product designer working across AI, crypto, autonomous systems and whatever problem comes next.</p>
     <p class="hero__para">I work closely with founders, engineers, customers and data — from the first unclear brief all the way to the shipped, measured product.</p>
     <div class="hero__cue" aria-hidden="true"><span></span></div>
@@ -381,5 +293,6 @@
 
 <script src="js/main.js"></script>
 <script src="js/ph.js"></script>
+<script src="js/shutter.js"></script>
 </body>
 </html>

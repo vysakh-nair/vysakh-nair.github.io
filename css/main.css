@@ -155,9 +155,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 500; letter-spacing: -0.01e
   color: var(--accent);
 }
 .hero h1.hero__one {
-  font-size: clamp(25px, 2.9vw, 42px);
   max-width: none;
-  letter-spacing: -0.018em;
 }
 @media (min-width: 900px) { .hero h1.hero__one { white-space: nowrap; } }
 .hero__sub {
@@ -1414,3 +1412,25 @@ table.compare { width: 100%; border-collapse: collapse; font-size: 14.5px; min-w
   border-radius: 2px;
   transition: width 0.5s cubic-bezier(0.6, 0, 0.2, 1);
 }
+
+
+/* ---------- page shutter — two bars close/open over navigation ---------- */
+html::before, html::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 50.6%;
+  background: var(--paper);
+  z-index: 300;
+  pointer-events: none;
+  transition: transform 0.55s cubic-bezier(0.72, 0, 0.2, 1);
+}
+html::before { top: 0; transform: translateY(-101%); box-shadow: 0 1px 0 var(--line); }
+html::after  { bottom: 0; transform: translateY(101%); box-shadow: 0 -1px 0 var(--line); }
+html.sh-covered::before, html.sh-closing::before { transform: none; }
+html.sh-covered::after,  html.sh-closing::after  { transform: none; }
+html.sh-opening::before { transform: translateY(-101%); }
+html.sh-opening::after  { transform: translateY(101%); }
+
+.loader--sh { background: transparent; z-index: 301; pointer-events: auto; }

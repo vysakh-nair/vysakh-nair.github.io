@@ -1,0 +1,126 @@
+/* Page shutter — bars close over the old page, the name-board plays, bars open on the new one.
+   The <head> of every page adds .sh-covered before first paint so the incoming page starts hidden. */
+(function () {
+  "use strict";
+
+  var html = document.documentElement;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var covered = html.classList.contains("sh-covered");
+  var fromNav = false;
+  try { fromNav = sessionStorage.getItem("vn_nav") === "1"; sessionStorage.removeItem("vn_nav"); } catch (e) {}
+
+  var GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var WORD = " COMPLEXITY";
+  var NAME = "VYSAKH NAIR";
+  var overlay = null, ruleEl = null, cells = [];
+  var start = 0, dismissed = false, wantOut = false;
+
+  /* timing: direct visits get the full word → name sequence, page-to-page hops a quick resolve */
+  var CYC   = fromNav ? 2400 : 3400;
+  var HOLD  = fromNav ? 2100 : 3050;
+  var LOCK0 = fromNav ? 260  : 950;
+  var STEPT = fromNav ? 70   : 90;
+  var WORDT = fromNav ? 0    : 650;
+  var MIN   = fromNav ? 1000 : 1600;
+
+  function setCell(c, ch, on) {
+    c.el.textContent = ch === " " ? " " : ch;
+    c.el.classList.toggle("on", on);
+  }
+
+  function buildOverlay() {
+    overlay = document.createElement("div");
+    overlay.className = "loader loader--sh";
+    overlay.setAttribute("aria-hidden", "true");
+    var n = document.createElement("div"); n.className = "loader__name";
+    var r = document.createElement("div"); r.className = "loader__rule";
+    ruleEl = document.createElement("span"); r.appendChild(ruleEl);
+    for (var i = 0; i < NAME.length; i++) {
+      var sp = document.createElement("span");
+      var ch = fromNav ? GLYPHS[(Math.random() * 26) | 0] : WORD[i];
+      sp.textContent = ch === " " ? " " : ch;
+      if (!fromNav) sp.className = "on";
+      n.appendChild(sp);
+      cells.push({ el: sp, a: WORD[i], b: NAME[i] });
+    }
+    overlay.appendChild(n); overlay.appendChild(r);
+    document.body.appendChild(overlay);
+  }
+
+  function tick(now) {
+    if (dismissed) return;
+    var t = (now - start) % CYC, nameLocked = true;
+    for (var i = 0; i < cells.length; i++) {
+      var c = cells[i], lockAt = LOCK0 + i * STEPT;
+      if (t < WORDT) { setCell(c, c.a, true); nameLocked = false; }
+      else if (t >= lockAt && t < HOLD) { setCell(c, c.b, true); }
+      else {
+        nameLocked = false;
+        if (((now / 45) | 0) % 2 === 0) setCell(c, GLYPHS[(Math.random() * 26) | 0], false);
+        else c.el.classList.remove("on");
+      }
+    }
+    if (ruleEl) ruleEl.style.width = nameLocked ? "100%" : "0%";
+    if (wantOut && nameLocked) { openUp(); return; }
+    requestAnimationFrame(tick);
+  }
+
+  function openUp() {
+    if (dismissed) return;
+    dismissed = true;
+    html.classList.add("sh-opening");
+    if (overlay) overlay.classList.add("out");
+    setTimeout(function () {
+      html.classList.remove("sh-covered", "sh-opening");
+      if (overlay) { overlay.remove(); overlay = null; }
+    }, 680);
+  }
+
+  function requestOpen() {
+    if (dismissed) return;
+    if (reduce || !cells.length) { openUp(); return; }
+    var elapsed = performance.now() - start;
+    if (elapsed < MIN) { setTimeout(requestOpen, MIN - elapsed); return; }
+    wantOut = true;   // open at the next fully-resolved name
+  }
+
+  if (covered) {
+    buildOverlay();
+    start = performance.now();
+    if (reduce) {
+      for (var j = 0; j < cells.length; j++) setCell(cells[j], cells[j].b, true);
+      if (ruleEl) ruleEl.style.width = "100%";
+    } else {
+      requestAnimationFrame(tick);
+    }
+    if (document.readyState === "complete") requestOpen();
+    else window.addEventListener("load", requestOpen);
+    setTimeout(openUp, 5000);   // hard cap — never trap the visitor
+  }
+
+  /* ---- outgoing: close the shutter on internal link clicks, then navigate ---- */
+  document.addEventListener("click", function (ev) {
+    if (reduce || ev.defaultPrevented || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey || ev.button !== 0) return;
+    var a = ev.target.closest && ev.target.closest("a");
+    if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
+    var href = a.getAttribute("href") || "";
+    if (!href || href.charAt(0) === "#" || href.indexOf("mailto:") === 0) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch (e) { return; }
+    if (url.origin !== location.origin) return;
+    if (url.pathname === location.pathname && url.hash) return;   // same-page anchor
+    ev.preventDefault();
+    try { sessionStorage.setItem("vn_nav", "1"); } catch (e) {}
+    html.classList.add("sh-closing");
+    setTimeout(function () { location.href = url.href; }, 520);
+  });
+
+  /* back/forward restore from bfcache: never stay covered */
+  window.addEventListener("pageshow", function (e) {
+    if (e.persisted) {
+      dismissed = true;
+      html.classList.remove("sh-covered", "sh-opening", "sh-closing");
+      if (overlay) { overlay.remove(); overlay = null; }
+    }
+  });
+})();

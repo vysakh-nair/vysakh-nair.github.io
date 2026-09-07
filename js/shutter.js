@@ -145,6 +145,14 @@
 
   if (!covered) initReveals();
 
+  /* elements at the very bottom of the page can't clear the reveal margin — flush them at page end */
+  window.addEventListener("scroll", function () {
+    if ((window.innerHeight + window.scrollY) < document.documentElement.scrollHeight - 60) return;
+    document.querySelectorAll(".rv2:not(.in), .rv:not(.in)").forEach(function (el) {
+      el.classList.add("in");
+    });
+  }, { passive: true });
+
   /* ---- outgoing: close the shutter on internal link clicks, then navigate ---- */
   document.addEventListener("click", function (ev) {
     if (reduce || ev.defaultPrevented || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey || ev.button !== 0) return;

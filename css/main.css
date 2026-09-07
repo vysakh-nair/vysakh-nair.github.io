@@ -1386,6 +1386,8 @@ table.compare { width: 100%; border-collapse: collapse; font-size: 14.5px; min-w
 }
 .about-offhours .edu p { margin-top: 8px; color: var(--ink-70); font-size: 15px; }
 .about-offhours .edu + .edu { margin-top: 0; }
+/* about page: kickers carry the structure — drop the per-block rules */
+.about-offhours .edu, .about-grid .edu { border-top: 0; padding-top: 0; }
 @media (max-width: 760px) { .about-offhours { grid-template-columns: 1fr; gap: 22px; } }
 
 /* ---------- loader — departure-board name resolve ---------- */

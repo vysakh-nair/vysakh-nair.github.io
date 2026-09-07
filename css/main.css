@@ -1505,6 +1505,15 @@ html.sh-opening::after  { transform: translateY(101%); }
   grid-template-columns: repeat(2, 1fr);
   gap: clamp(28px, 4vw, 56px) clamp(32px, 5vw, 72px);
 }
+.kind--shots { display: block; columns: 2; column-gap: 24px; }
+.kind__shot { break-inside: avoid; margin: 0 0 24px; }
+.kind__shot img {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 48px -28px rgba(25, 26, 30, 0.35);
+}
+@media (max-width: 680px) { .kind--shots { columns: 1; } }
 .kind__q blockquote {
   font-family: var(--serif);
   font-size: 19px;

@@ -1505,15 +1505,26 @@ html.sh-opening::after  { transform: translateY(101%); }
   grid-template-columns: repeat(2, 1fr);
   gap: clamp(28px, 4vw, 56px) clamp(32px, 5vw, 72px);
 }
-.kind--shots { display: block; columns: 2; column-gap: 24px; }
-.kind__shot { break-inside: avoid; margin: 0 0 24px; }
+.kind--shots { display: block; columns: 3; column-gap: clamp(18px, 2.5vw, 32px); }
+.kind__shot {
+  break-inside: avoid;
+  margin: 0 0 clamp(22px, 3vw, 36px);
+  transition: transform 0.35s cubic-bezier(0.3, 0.8, 0.3, 1);
+}
+.kind__shot:nth-child(1) { transform: rotate(-1.6deg); }
+.kind__shot:nth-child(2) { transform: rotate(1.3deg); }
+.kind__shot:nth-child(3) { transform: rotate(-0.9deg); }
+.kind__shot:nth-child(4) { transform: rotate(1.8deg); }
+.kind__shot:nth-child(5) { transform: rotate(-1.2deg); }
+.kind__shot:hover { transform: rotate(0deg) scale(1.03); }
 .kind__shot img {
   width: 100%;
-  border-radius: 18px;
+  border-radius: 14px;
   border: 1px solid var(--line);
-  box-shadow: 0 24px 48px -28px rgba(25, 26, 30, 0.35);
+  box-shadow: 0 18px 40px -22px rgba(25, 26, 30, 0.45);
 }
-@media (max-width: 680px) { .kind--shots { columns: 1; } }
+@media (max-width: 900px) { .kind--shots { columns: 2; } }
+@media (max-width: 600px) { .kind--shots { columns: 1; } .kind__shot { transform: none !important; } }
 .kind__q blockquote {
   font-family: var(--serif);
   font-size: 19px;

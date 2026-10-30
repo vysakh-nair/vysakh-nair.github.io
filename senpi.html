@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autonomous systems — Senpi · Vysakh G Nair</title>
+<meta name="description" content="How do you make AI trustworthy when it controls money? Designing the trust layer around an autonomous trading system.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mansalva&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/chapter-base.css">
+<link rel="stylesheet" href="css/chapter.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230a0e16'/><circle cx='50' cy='50' r='16' fill='%23f5c99b'/></svg>">
+<link rel="stylesheet" href="css/shutter.css">
+<script>document.documentElement.classList.add("sh-covered");setTimeout(function(){document.documentElement.classList.remove("sh-covered")},7000);</script>
+</head>
+<body class="chapter">
+<div class="grain" aria-hidden="true"></div>
+<div class="chapter-glow" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="nav__name" href="index.html">Vysakh G Nair <span>— Product Designer</span></a>
+    <nav class="nav__links">
+      <a class="nav__link" href="index.html#resume">Career</a>
+      <a class="nav__link" href="index.html#works">Work</a>
+      <a class="nav__link" href="about.html">About</a>
+      <a class="nav__link" href="resume.html">Résumé</a>
+      <a class="nav__link" href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<section class="case-hero">
+  <div class="wrap">
+    <span class="case-hero__chapter">Autonomous systems — Senpi</span>
+    <h1>How do you make AI trustworthy <em class="serif-i accent">when it controls money?</em></h1>
+    <p class="case-hero__standfirst">Senpi is an AI-native trading platform for Hyperliquid perpetuals: describe a strategy in plain English and an AI agent builds, funds, runs and protects it. The more the AI could do, the less people understood it. As co-founder and design lead, working with the founders, engineering and growth, I made autonomous trading visible, understandable and controllable.</p>
+    <div class="case-hero__facts">
+      <span class="kicker">2025–present</span>
+      <span class="kicker">The flagship problem</span>
+    </div>
+    <div class="case-end__metrics" style="margin-top:32px">
+      <div class="metric"><span class="metric__big">1M+</span><span class="metric__label">agent-executed trades</span></div>
+      <div class="metric"><span class="metric__big">$418M</span><span class="metric__label">trading volume</span></div>
+      <div class="metric"><span class="metric__big">~1% → 11%</span><span class="metric__label">signup-to-funded</span></div>
+    </div>
+    <div class="scope rv">
+      <div><span class="kicker">Role</span><p>Co-founder · Design lead</p></div>
+      <div><span class="kicker">Owned</span><p>Product strategy · UX · interaction · visual · AI experience</p></div>
+      <div><span class="kicker">Worked with</span><p>Founders · engineering · growth</p></div>
+      <div><span class="kicker">Scope</span><p>Onboarding · funding · agent visibility &amp; control · trust model</p></div>
+    </div>
+    <figure class="fig rv" style="margin-top:44px">
+      <div class="shot"><img src="assets/senpi/web-landing.png" alt="Senpi — web app" loading="lazy"></div>
+      <figcaption>Senpi on the web: describe a thesis, watch the agent work.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= PROBLEM ================= -->
+<section class="case-section case-section--rule">
+  <div class="wrap">
+    <p class="case-label">The problem</p>
+    <h2>People could see the outcome. They couldn't see the thinking.</h2>
+    <div class="case-body">
+      <p>A trading product asks <em>“what do you want to do?”</em> An autonomous one asks <em>“what should I do for you?”</em> Scanning, evaluating and deliberately waiting all looked the same to the user: <strong style="color:var(--ink)">nothing is happening.</strong></p>
+    </div>
+    <div class="funnel rv" style="margin-top:32px">
+      <div class="funnel__row">
+        <span class="funnel__label">Signed up</span>
+        <div class="funnel__bar-wrap"><div class="funnel__bar" data-w="100%"></div><span class="funnel__val">100%</span></div>
+      </div>
+      <div class="funnel__row">
+        <span class="funnel__label">Funded</span>
+        <div class="funnel__bar-wrap"><div class="funnel__bar" data-w="2.5%"></div><span class="funnel__val">~1%</span></div>
+      </div>
+      <div class="funnel__row">
+        <span class="funnel__label">Of funded, traded</span>
+        <div class="funnel__bar-wrap"><div class="funnel__bar funnel__bar--accent" data-w="100%"></div><span class="funnel__val" style="color:var(--paper)">~100%</span></div>
+      </div>
+    </div>
+    <div class="case-body">
+      <p>Once people funded, they used the product. The barrier was trust, not trading. Three decisions did most of the work of closing it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DECISION 01 ================= -->
+<section class="case-section case-section--rule">
+  <div class="wrap">
+    <p class="case-label">Decision 01 · Funding</p>
+    <h2>Earn trust at the deposit screen, and nowhere louder.</h2>
+    <p class="dec-intro">Funding was a QR code, an address and a row of network chips. Technically complete, and no help to someone moving real money into a product they'd known for five minutes.</p>
+
+    <span class="sublabel">Directions</span>
+    <div class="opts rv">
+      <div class="opt">
+        <div class="todo"><b>To add</b><span>The original funding screen: QR, address, network chips</span></div>
+        <span class="opt__tag">Before</span>
+        <p class="opt__t">Bare QR and address</p>
+        <p class="opt__why">Everything technically necessary. None of what a nervous person needs.</p>
+      </div>
+      <div class="opt">
+        <div class="todo"><b>To add</b><span>An exploration with reassurance across the app: banners, badges, safety copy</span></div>
+        <span class="opt__tag">Explored · dropped</span>
+        <p class="opt__t">Reassurance everywhere</p>
+        <p class="opt__why">Over-reassurance reads as nervousness.</p>
+      </div>
+      <div class="opt opt--shipped">
+        <div class="shot"><img src="assets/senpi/fund-widget.png" alt="Shipped funding ask with trust block" loading="lazy"></div>
+        <span class="opt__tag">Shipped</span>
+        <p class="opt__t">Answer the fear at the moment it happens</p>
+        <p class="opt__why">One trust block on the funding ask, and quiet everywhere else.</p>
+      </div>
+    </div>
+
+    <span class="sublabel">The questions it answers</span>
+    <div class="trust-grid" style="margin-top:18px">
+      <div class="trust-item rv"><h3>“Is my money safe?”</h3><p>Self-custody, stated plainly: the wallet is yours, secured by Privy. Only you hold the key, and you can withdraw anytime.</p></div>
+      <div class="trust-item rv"><h3>“What can the agent do?”</h3><p>It can trade with your permission. It can never withdraw or transfer. Limits stated as facts, not marketing.</p></div>
+      <div class="trust-item rv"><h3>“Who is behind this?”</h3><p>A quiet investor strip at the moment of most doubt, not spread across the site.</p></div>
+      <div class="trust-item rv"><h3>“Is my account protected?”</h3><p>Multi-factor authentication via Privy on sign-in and consequential actions.</p></div>
+    </div>
+
+    <span class="sublabel">Close-up</span>
+    <div class="detail-row rv">
+      <figure class="fig">
+        <div class="loupe">
+          <span class="loupe__badge"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg></span>
+          <div class="shot"><img src="assets/senpi/detail-trust.png" alt="Trust block: your funds stay under your control" loading="lazy"></div>
+        </div>
+      </figure>
+      <ol class="notes">
+        <li><b>A promise, not a feature.</b> The headline says what the user keeps: control of their funds.</li>
+        <li><b>Mechanism in one line.</b> Self-custody wallets, no keys held, every trade signed.</li>
+        <li><b>The action lives inside the reassurance,</b> so trust and the ask arrive together.</li>
+      </ol>
+    </div>
+
+    <div class="phone-row rv" style="margin-top:48px">
+      <div class="phone"><img src="assets/senpi/deposit.png" alt="Deposit flow" loading="lazy"></div>
+      <div class="phone"><img src="assets/senpi/mfa.png" alt="Enable MFA" loading="lazy"></div>
+      <div class="phone"><img src="assets/senpi/funded.png" alt="After funding" loading="lazy"></div>
+    </div>
+    <div class="pull rv" style="margin-top:40px">Reassure at the moment of fear. <em>Stay quiet everywhere else.</em></div>
+  </div>
+</section>
+
+<!-- ================= DECISION 02 ================= -->
+<section class="case-section case-section--rule">
+  <div class="wrap">
+    <p class="case-label">Decision 02 · Visibility</p>
+    <h2>Show the decisions that matter, not everything the agent did.</h2>
+    <p class="dec-intro">An agent makes hundreds of decisions that never become trades. Show only trades and people see “nothing happened.” Show everything and they see noise.</p>
+    <div class="flow rv" style="margin-top:28px">
+      <span class="flow__step">Scan</span><span class="flow__arrow">→</span>
+      <span class="flow__step">Evaluate</span><span class="flow__arrow">→</span>
+      <span class="flow__step">Reject</span><span class="flow__arrow">→</span>
+      <span class="flow__step">Wait</span><span class="flow__arrow">→</span>
+      <span class="flow__step">Re-evaluate</span>
+    </div>
+
+    <span class="sublabel">Directions</span>
+    <div class="opts rv">
+      <div class="opt">
+        <div class="todo"><b>To add</b><span>The trades-only activity view</span></div>
+        <span class="opt__tag">Before</span>
+        <p class="opt__t">Trades only</p>
+        <p class="opt__why">An agent that was working looked idle.</p>
+      </div>
+      <div class="opt">
+        <div class="todo"><b>To add</b><span>The “show everything” exploration: raw scan and telemetry log</span></div>
+        <span class="opt__tag">Explored · dropped</span>
+        <p class="opt__t">Show everything</p>
+        <p class="opt__why">Complete and unreadable. Transparency turned into telemetry.</p>
+      </div>
+      <div class="opt opt--shipped">
+        <div class="shot"><img src="assets/senpi/live-scans.png" alt="View all scans decision timeline" loading="lazy"></div>
+        <span class="opt__tag">Shipped</span>
+        <p class="opt__t">A curated decision timeline</p>
+        <p class="opt__why">What the agent considered, acted on and skipped, and why, plus errors, fills and strategy state.</p>
+      </div>
+    </div>
+
+    <span class="sublabel">Then: why, not just what</span>
+    <div class="case-body">
+      <p>An opened position doesn't explain itself. So every position carries its reasoning:</p>
+    </div>
+    <div class="xlate rv" style="margin-top:20px">
+      <div class="xlate-row"><b>Thesis</b><i>→</i><span>Why does this position exist?</span></div>
+      <div class="xlate-row"><b>Evidence</b><i>→</i><span>What signals led to the decision?</span></div>
+      <div class="xlate-row"><b>Kill condition</b><i>→</i><span>What would end the position?</span></div>
+      <div class="xlate-row"><b>Conviction</b><i>→</i><span>How confident is the system?</span></div>
+    </div>
+
+    <span class="sublabel">Close-up</span>
+    <div class="gallery gallery--2 rv" style="margin-top:18px">
+      <figure class="fig">
+        <div class="loupe">
+          <span class="loupe__badge"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg></span>
+          <div class="shot"><img src="assets/senpi/meta-detail.png" alt="Opened META position, expanded" loading="lazy"></div>
+        </div>
+        <figcaption>One opened position: signal, risk gates, fill, and why it's in.</figcaption>
+      </figure>
+      <figure class="fig">
+        <div class="loupe loupe--r">
+          <span class="loupe__badge"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg></span>
+          <div class="shot"><img src="assets/senpi/meta-thesis.png" alt="Thesis, kill condition and conviction" loading="lazy"></div>
+        </div>
+        <figcaption>Why it's in, what would make it wrong, 6/10 conviction.</figcaption>
+      </figure>
+    </div>
+    <div class="case-body" style="margin-top:32px">
+      <p>A losing trade stops reading as <em>“the AI lost my money”</em> and starts reading as <strong style="color:var(--ink)">“the strategy believed X, and Y invalidated it.”</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DECISION 03 ================= -->
+<section class="case-section case-section--rule">
+  <div class="wrap">
+    <p class="case-label">Decision 03 · Control</p>
+    <h2>Ask about consequences, not tools.</h2>
+    <p class="dec-intro">The old permission model interrupted people on their own harmless actions and stayed silent on the agent's consequential ones.</p>
+
+    <span class="sublabel">Directions</span>
+    <div class="opts rv">
+      <div class="opt">
+        <div class="todo"><b>To add</b><span>The old per-tool permission prompt</span></div>
+        <span class="opt__tag">Before</span>
+        <p class="opt__t">“Can this agent use this tool?”</p>
+        <p class="opt__why">Generic technical access: asked on harmless actions, missing on consequential ones.</p>
+      </div>
+      <div class="opt">
+        <div class="todo"><b>To add</b><span>Another direction you explored for approvals</span></div>
+        <span class="opt__tag">Explored · dropped</span>
+        <p class="opt__t"><span class="todo-text">[Name the direction]</span></p>
+        <p class="opt__why"><span class="todo-text">[One line on why it lost]</span></p>
+      </div>
+      <div class="opt opt--shipped">
+        <div class="shot"><img src="assets/senpi/allow-ux.png" alt="Consequence-based approval" loading="lazy"></div>
+        <span class="opt__tag">Shipped</span>
+        <p class="opt__t">“This is what the agent is about to do. Proceed?”</p>
+        <p class="opt__why">Intervention where the consequence is, not where the implementation needs permission.</p>
+      </div>
+    </div>
+
+    <span class="sublabel">Close-up</span>
+    <div class="detail-row rv">
+      <figure class="fig">
+        <div class="loupe">
+          <span class="loupe__badge"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg></span>
+          <div class="shot"><img src="assets/senpi/detail-approval.png" alt="Close your BTC position approval" loading="lazy"></div>
+        </div>
+      </figure>
+      <ol class="notes">
+        <li><b>The title is the consequence</b>, in the user's words: close your BTC position.</li>
+        <li><b>The details read like a receipt:</b> asset, order type, wallet.</li>
+        <li><b>“No action is taken until you allow”</b> says who is in control before the buttons do.</li>
+        <li><b>Three honest answers:</b> deny, allow once, or allow always, each with a keyboard shortcut.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OUTCOMES ================= -->
+<section class="case-section case-section--rule">
+  <div class="wrap">
+    <p class="case-label">Outcomes</p>
+    <div class="case-end__metrics" style="margin-top:12px">
+      <div class="metric"><span class="metric__big">~1% → 11%</span><span class="metric__label">signup-to-funded</span></div>
+      <div class="metric"><span class="metric__big">1M+</span><span class="metric__label">agent-executed trades</span></div>
+      <div class="metric"><span class="metric__big">$418M</span><span class="metric__label">volume since relaunch</span></div>
+    </div>
+    <div class="case-body" style="margin-top:28px">
+      <p>The conversion gain belongs to the whole body of onboarding, funding and trust work with growth and engineering, not to any single screen.</p>
+    </div>
+    <h2 style="margin-top:56px;font-size:clamp(20px,2.4vw,28px)">Same product, one year apart.</h2>
+    <div class="ba rv">
+      <div>
+        <p class="ba__tag">Before · 2024</p>
+        <div class="phone-row">
+          <div class="appshot"><img src="assets/senpi/old-1.png" alt="Senpi in 2024" loading="lazy"></div>
+          <div class="appshot"><img src="assets/senpi/old-2.png" alt="Senpi in 2024" loading="lazy"></div>
+        </div>
+      </div>
+      <div>
+        <p class="ba__tag">Now</p>
+        <div class="phone-row">
+          <div class="appshot"><img src="assets/senpi/app-5.png" alt="Senpi now" loading="lazy"></div>
+          <div class="appshot"><img src="assets/senpi/app-6.png" alt="Senpi now" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REFLECTION ================= -->
+<section class="case-end">
+  <div class="wrap">
+    <p class="case-label">What I learned</p>
+    <h2>Make autonomy understandable before making it powerful.</h2>
+    <p>The answer wasn't more automation. It was visibility, explanation and control around it. Next in that direction, designed but not yet shipped: strategy-build previews, durable memory and proactive reviews.</p>
+    <p style="margin-top:16px"><span class="todo-text">[What I'd do differently: one honest sentence.]</span></p>
+  </div>
+</section>
+
+<a class="next-chapter" href="subscriptions.html">
+  <div class="wrap">
+    <span class="kicker">Next — Business model</span>
+    <h2>What makes someone pay for an AI quant? →</h2>
+  </div>
+</a>
+
+</main>
+
+
+<script src="js/case.js"></script>
+<script src="js/ph.js"></script>
+<script src="js/shutter.js"></script>
+<script src="js/chapter.js"></script>
+</body>
+</html>

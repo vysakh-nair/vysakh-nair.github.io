@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Senpi · approval prompt (clickable prototype)</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="proto.css">
+<style>
+.canvas { background: rgb(252, 252, 252); }
+.canvas img.shot { inset: auto; left: 28px; top: 28px; width: 672px; height: 347px; }
+.toolrow { position: absolute; left: 28px; top: 36px; display: flex; align-items: center; gap: 8px; margin-left: 2px; padding: 4px 0 4px 14px; border-left: 2px solid rgba(46,46,46,.08); font: 400 13px/1.5 "DM Sans", sans-serif; }
+.toolrow .ic { width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: none; }
+.toolrow .ic svg { width: 10px; height: 10px; fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.toolrow .ic.ok { background: #1cca5b; } .toolrow .ic.no { background: #E86057; }
+.toolrow .lab.ok { color: #1cca5b; } .toolrow .lab.no { color: #E86057; }
+.toolrow .tool { color: rgba(46,46,46,.5); }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="canvas" id="canvas">
+    <img class="shot" alt="">
+    <div class="layer" id="custom"></div>
+    <div class="layer" id="hots"></div>
+    <div class="ctl" role="group" aria-label="Prototype controls">
+      <button type="button" id="back">Back</button>
+      <button type="button" id="reset">Start over</button>
+    </div>
+  </div>
+</div>
+<p class="sr" id="say" aria-live="polite"></p>
+<script src="states.js"></script>
+<script src="proto.js"></script>
+</body>
+</html>

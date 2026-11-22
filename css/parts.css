@@ -1,0 +1,253 @@
+/* ============================================================
+   Parts shared by every page: the case-study teardown, regions on a
+   screen tied to their notes, clickable prototypes in fixed frames,
+   and a plain enlarge for ordinary screenshots.
+   ============================================================ */
+
+/* ---------- the teardown at a case study's opening ----------
+   The figure arrives as the screenshot and nothing else. Once it is well inside the window the screen
+   steps back to one side and a few of its regions come forward into the margin beside it: each is the
+   same pixels as the marked region, with its note under it and a line back to where it came from.
+   One class on <html> (td-open) holds the state, so both sides of the page stay in step. The box never
+   changes size. Without scripts or on a narrow screen: the screen, then the parts listed below it. */
+.stack { position: relative; width: 100%; aspect-ratio: var(--box, 1.6); }
+.stack__screen { position: absolute; inset: 0; }
+.stack__base { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 14px; background: #fff; box-shadow: 0 0 0 1px rgba(11, 11, 12, .16), 0 10px 0 var(--slab); }
+.stack__hole, .stack__lines { position: absolute; opacity: 0; pointer-events: none; }
+.stack__hole { z-index: 1; border-radius: 5px; background: rgba(255, 210, 49, .24); box-shadow: 0 0 0 3px var(--ink); }
+.stack__lines { inset: 0; z-index: 1; width: 100%; height: 100%; overflow: visible; }
+.stack__lines path { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: butt; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.stack__lines circle { fill: var(--ink); }
+.stack__bar { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px 32px; margin-top: 28px; }
+.stack__bar figcaption { margin-top: 0; }
+.stack__parts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 28px; align-items: start; margin-top: 44px; }
+.part__img { display: block; width: 100%; aspect-ratio: var(--ar); border-radius: 10px; background-color: #fff; background-repeat: no-repeat; box-shadow: 0 0 0 2px var(--ink), 0 8px 0 var(--ink); }
+.part__tag { margin-top: 24px; font-size: 14.5px; line-height: 1.4; opacity: .9; }
+.part__tag b { display: block; margin-bottom: 2px; font-family: var(--display); font-size: 1.12em; font-weight: 800; }
+.stack__toggle {
+  display: none; flex: none; align-items: center; gap: 8px; height: 38px; padding: 0 16px 0 12px; border-radius: 999px;
+  font-family: var(--display); font-size: 15px; font-weight: 700; line-height: 1; color: var(--ink); background: #fff;
+  box-shadow: 0 0 0 1.5px var(--ink), 0 4px 0 var(--ink); transition: transform .12s var(--ease), box-shadow .12s var(--ease);
+}
+.stack__toggle:hover, .stack__toggle:focus-visible { transform: translateY(-1px); box-shadow: 0 0 0 1.5px var(--ink), 0 5px 0 var(--ink); }
+.stack__toggle:active { transform: translateY(3px); box-shadow: 0 0 0 1.5px var(--ink), 0 1px 0 var(--ink); }
+.stack__toggle i { position: relative; width: 14px; height: 12px; }
+.stack__toggle i::before, .stack__toggle i::after { content: ""; position: absolute; left: 0; right: 0; height: 4px; border: 1.5px solid var(--ink); border-radius: 2px; }
+.stack__toggle i::before { top: 0; transform: translateY(2px); }
+.stack__toggle i::after { bottom: 0; transform: translateY(-2px); }
+.stack__toggle[aria-pressed="true"] i::before, .stack__toggle[aria-pressed="true"] i::after { transform: none; }
+.stack__toggle .on, .stack__toggle[aria-pressed="true"] .off { display: none; }
+.stack__toggle[aria-pressed="true"] .on { display: inline; }
+@media (max-width: 700px) { .stack__parts { grid-template-columns: minmax(0, 1fr); } .part { max-width: 460px; } }
+
+@media (min-width: 1100px) {
+  html.js .fig--stack { position: relative; }
+  html.js .stack__toggle { display: inline-flex; }
+  html.js .stack__screen { transform-origin: 0 50%; }
+  html.js .stack--l .stack__screen { transform-origin: 100% 50%; }
+  html.js.td-open .stack__screen { transform: scale(.7); }
+  html.js.td-open .stack__hole, html.js.td-open .stack__lines { opacity: 1; }
+  html.js .stack__parts { position: absolute; left: 0; top: 0; display: block; width: 100%; aspect-ratio: var(--box, 1.6); margin: 0; container-type: inline-size; pointer-events: none; }
+  html.js .part { position: absolute; left: var(--x); top: var(--y); width: var(--w); transform-origin: 0 0; transform: translate(var(--tx), var(--ty)) scale(var(--k)); opacity: 0; }
+  html.js.td-open .part { transform: none; opacity: 1; }
+  html.js .part__img { border-radius: 0; box-shadow: 0 0 0 0 var(--ink), 0 0 0 var(--ink); }
+  html.js.td-open .part__img { border-radius: 8px; box-shadow: 0 0 0 2px var(--ink), 0 7px 0 var(--ink); }
+  html.js .part__tag { position: absolute; left: 0; top: calc(100% + 19px); width: calc(var(--tw) * 1%); margin: 0; font-size: clamp(13px, 1.14cqw, 15.5px); line-height: 1.36; opacity: 0; }
+  html.js.td-open .part__tag { opacity: .94; }
+}
+/* the movement: eased, the parts one after another; none of it for a reader who asked for less motion */
+@media (min-width: 1100px) and (prefers-reduced-motion: no-preference) {
+  html.js .stack__screen { transition: transform .9s var(--ease); }
+  html.js .stack__hole, html.js .stack__lines { transition: opacity .15s linear; }
+  html.js.td-open .stack__hole, html.js.td-open .stack__lines { transition: opacity .4s ease .95s; }
+  html.js .part { transition: transform .9s var(--ease), opacity .01s linear .9s; }
+  html.js.td-open .part { transition: transform .9s var(--ease) calc(var(--n, 0) * .13s), opacity .01s linear calc(var(--n, 0) * .13s); }
+  html.js .part__img { transition: box-shadow .45s ease, border-radius .45s ease; }
+  html.js.td-open .part__img { transition: box-shadow .45s ease calc(var(--n, 0) * .13s), border-radius .45s ease calc(var(--n, 0) * .13s); }
+  html.js .part__tag { transition: opacity .12s linear; }
+  html.js.td-open .part__tag { transition: opacity .4s ease calc(.6s + var(--n, 0) * .13s); }
+  .stack__toggle i::before, .stack__toggle i::after { transition: transform .4s var(--ease); }
+}
+/* the second side shows the reasoning in this box instead */
+.layer--r .stack, .layer--r .stack__parts, .layer--r .stack__toggle { visibility: hidden; }
+
+/* ---------- a plain enlarge for ordinary screenshots ---------- */
+.zoomable { cursor: zoom-in; }
+.lightbox { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 4vmin; background: rgba(11, 11, 12, .93); cursor: zoom-out; }
+.lightbox[hidden] { display: none; }
+.lightbox img { max-width: 100%; max-height: 92vh; border-radius: 10px; background: #fff; }
+.lightbox__close { position: absolute; top: 16px; right: 20px; width: 44px; height: 44px; border-radius: 50%; background: #fff; color: var(--ink); font-size: 26px; line-height: 1; }
+html.has-lightbox .seam { display: none; }
+
+/* ---------- a region on a screen and the note that explains it ---------- */
+.shot, .phone, .appshot, .kind__shot, .tile__shot, .plate__shot { position: relative; }
+.hot {
+  position: absolute; z-index: 2; border-radius: 10px; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 0 0 0 transparent; transition: box-shadow .18s ease, background-color .18s ease;
+}
+.hot::before {
+  content: attr(data-num); position: absolute; left: -11px; top: -11px; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--sun); color: var(--ink); box-shadow: 0 0 0 1.5px var(--ink), 0 3px 0 var(--ink);
+  font-family: var(--text); font-size: 13.5px; font-weight: 700; line-height: 26px; text-align: center;
+  transition: box-shadow .14s ease, background-color .14s ease, color .14s ease;
+}
+.hot:hover, .hot:focus-visible, .hot.is-peek, .hot.is-on { box-shadow: 0 0 0 2.5px var(--ink); background-color: rgba(255, 210, 49, .26); outline: none; }
+.hot:hover::before, .hot:focus-visible::before, .hot.is-peek::before { box-shadow: 0 0 0 1.5px var(--ink), 0 5px 0 var(--ink); }
+.hot.is-on::before, .hot.is-peek::before { background: var(--ink); color: #fff; }
+.hot:active::before { box-shadow: 0 0 0 1.5px var(--ink), 0 1px 0 var(--ink); }
+/* the number can sit on the region's right corner where the left one would cover what it points at */
+.hot--r::before { left: auto; right: -11px; }
+/* on a dark screen the outline is light */
+.hot--light:hover, .hot--light:focus-visible, .hot--light.is-peek, .hot--light.is-on { box-shadow: 0 0 0 2.5px #fff; }
+.hot--dot { width: 0; height: 0; }
+.hot--dot::before { left: -13px; top: -13px; }
+.hot--dot.is-on::before { background: var(--ink); color: #fff; }
+[data-play] ol.notes > li[data-for] { cursor: pointer; border-radius: 12px; margin: -8px -10px; padding-top: 8px; padding-right: 10px; padding-bottom: 8px; padding-left: 56px; transition: background-color .18s ease; }
+[data-play] ol.notes > li[data-for]::before { left: 10px; top: 6px; }
+[data-play] ol.notes > li[data-for]:hover, [data-play] ol.notes > li.is-peek, [data-play] ol.notes > li.is-on { background-color: #fff6cf; color: var(--ink); }
+[data-play] ol.notes > li[data-for]:hover::before, [data-play] ol.notes > li.is-peek::before, [data-play] ol.notes > li.is-on::before { background: var(--ink); color: #fff; }
+[data-play] ol.notes > li:focus-visible { outline: 2.5px solid var(--ink); outline-offset: 2px; }
+/* a frame with numbered regions lets a number overhang its edge; the picture keeps the rounded corners */
+.shot.shot--hot { overflow: visible; }
+.shot.shot--hot > img { border-radius: inherit; }
+/* regions are placed against the picture itself, not the padded frame around it */
+.shot__in { position: relative; display: block; }
+.layer--r .hot { visibility: hidden; }
+
+/* ---------- a clickable prototype, in a frame with the prototype's own proportions ----------
+   The still is always there (and is what a reader without scripts, or on a screen too narrow for a
+   desktop prototype, gets, linked to the prototype's own page). The live prototype is laid over it. */
+.proto__frame { position: relative; aspect-ratio: var(--ar); margin: 0; border-radius: 14px; overflow: hidden; background: #fcfcfc; box-shadow: 0 0 0 1px rgba(11, 11, 12, .16), 0 10px 0 var(--slab); }
+.proto__still { position: absolute; inset: 0; display: block; }
+.proto__still img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+.proto__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #fcfcfc; }
+.proto__bar { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px 28px; margin-top: 26px; }
+.proto__line { max-width: 44em; font-size: 14.5px; line-height: 1.45; color: var(--ink-50); }
+.proto__hint { font-weight: 600; color: var(--ink); }
+.proto__line a { white-space: nowrap; color: var(--ink); text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+.proto__ctl { display: flex; flex: none; gap: 8px; visibility: hidden; }
+.proto.is-live .proto__ctl { visibility: visible; }
+.proto__ctl button {
+  height: 34px; padding: 0 14px; border-radius: 999px; background: #fff; color: var(--ink);
+  font-family: var(--display); font-size: 14px; font-weight: 700; line-height: 1;
+  box-shadow: 0 0 0 1.5px var(--ink), 0 3px 0 var(--ink); transition: transform .12s var(--ease), box-shadow .12s var(--ease), opacity .12s ease;
+}
+.proto__ctl button:hover:not(:disabled), .proto__ctl button:focus-visible { transform: translateY(-1px); box-shadow: 0 0 0 1.5px var(--ink), 0 4px 0 var(--ink); }
+.proto__ctl button:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 0 0 1.5px var(--ink), 0 1px 0 var(--ink); }
+/* skipping a prototype's lead-in: there only while the prototype says it can be skipped */
+.proto__ctl .proto__skip { visibility: hidden; }
+.proto.can-skip .proto__ctl .proto__skip { visibility: inherit; }
+.proto--dual .proto__ctl .proto__skip { display: none; }
+.proto--dual.can-skip .proto__ctl .proto__skip { display: inline-block; }
+.proto__ctl button:disabled { opacity: .45; box-shadow: 0 0 0 1.5px var(--ink); cursor: default; }
+@media (max-width: 759px) {
+  .proto:not([data-min="0"]) .proto__ctl { display: none; }
+  .proto__bar { flex-wrap: wrap; }
+}
+/* on a project plate, in the plate's own colours */
+.proto--plate { margin-right: clamp(16px, 2.2vw, 36px); }
+.proto--plate .plate__shot { margin: 0; border-radius: 14px; }
+.proto--plate .proto__bar { margin-top: 24px; }
+.proto--plate .proto__line { color: inherit; opacity: .86; font-size: 14px; }
+.proto--plate .proto__hint, .proto--plate .proto__line a { color: inherit; }
+@media (max-width: 999px) { .proto--plate { margin: 0 24px 40px; } }
+.layer--r .proto--plate .plate__shot > .brief--box { right: 0; }
+/* the phone prototype: the phone, and beside it what it is and its two controls */
+.proto--phone { display: grid; grid-template-columns: minmax(0, 290px) minmax(0, 24em); align-items: center; gap: 28px clamp(28px, 4.5vw, 72px); margin-top: 52px; }
+.proto--phone .proto__frame { border-radius: 30px; box-shadow: 0 0 0 1px rgba(11, 11, 12, .16), 0 10px 0 var(--slab); }
+.proto--phone .proto__bar { flex-direction: column; gap: 20px; margin-top: 0; }
+.proto--phone .proto__line { font-size: 16px; line-height: 1.5; }
+@media (max-width: 640px) { .proto--phone { grid-template-columns: minmax(0, 290px); } }
+.layer--r .proto__frame iframe, .layer--r .proto__ctl { visibility: hidden !important; }
+.notes--row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px clamp(20px, 3vw, 44px); margin-top: 36px; }
+@media (max-width: 860px) { .notes--row { grid-template-columns: minmax(0, 1fr); } }
+
+
+/* ---------- app or web: one box on a plate that holds either prototype ----------
+   The box keeps the web prototype's proportions in both positions, so switching moves nothing.
+   App shows a phone standing in the box on the plate's own colour, with what to try beside it. */
+.dual__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 38px; margin-bottom: 14px; }
+.seg { display: inline-flex; gap: 2px; padding: 4px; border-radius: 999px; background: #fff; box-shadow: 0 0 0 1.5px var(--ink), 0 4px 0 var(--ink); }
+.seg__b { height: 30px; padding: 0 17px; border-radius: 999px; font-family: var(--display); font-size: 14.5px; font-weight: 700; line-height: 1; color: var(--ink); transition: background-color .15s ease, color .15s ease, transform .1s var(--ease); }
+.seg__b:hover { background: var(--wash); }
+.seg__b:active { transform: translateY(1.5px); }
+.seg__b[aria-checked="true"] { background: var(--ink); color: #fff; }
+.seg__b:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+html:not(.js) .seg { display: none; }
+.dual__side { position: absolute; inset: 0; visibility: hidden; }
+.proto--dual[data-on="app"] .dual__side--app, .proto--dual[data-on="web"] .dual__side--web { visibility: visible; }
+.proto--dual[data-on="app"] .dual__box { overflow: visible; background: transparent; box-shadow: none; }
+.dual__side--app { display: flex; align-items: center; gap: clamp(22px, 3.4vw, 52px); padding-left: 9%; }
+.dual__phone { position: relative; flex: none; align-self: flex-start; height: calc(100% - 10px); aspect-ratio: var(--par); border-radius: clamp(16px, 2vw, 28px); overflow: hidden; background: #fff; box-shadow: 0 0 0 1.5px rgba(11, 11, 12, .55), 0 10px 0 var(--slab); }
+.dual__side iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #fcfcfc; }
+.dual__bar { display: grid; }
+.dual__cap { grid-area: 1 / 1; visibility: hidden; }
+.proto--dual[data-on="app"] .dual__cap[data-side="app"], .proto--dual[data-on="web"] .dual__cap[data-side="web"] { visibility: visible; }
+/* things to try: a short list, the first one leading */
+.proto__say { min-width: 0; }
+.proto__try { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 28px; margin-top: 14px; font-size: 15px; line-height: 1.38; color: var(--ink-70); }
+.proto__try li { position: relative; padding-left: 16px; }
+.proto__try li::before { content: ""; position: absolute; left: 0; top: .52em; width: 7px; height: 7px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px currentColor; }
+.proto__try li.proto__try-k { grid-column: 1 / -1; padding-left: 0; font-family: var(--display); font-size: 14px; font-weight: 700; color: var(--ink); }
+.proto__try li.proto__try-k::before { content: none; }
+.proto__try li.proto__try-k + li { font-weight: 650; color: var(--ink); }
+/* a single thing to try takes the whole line */
+.proto__try li:nth-child(2):last-child { grid-column: 1 / -1; }
+.proto__try li.proto__try-k + li::before { background: currentColor; }
+.proto--plate .proto__try { color: inherit; font-size: 14px; line-height: 1.34; }
+.proto--plate .proto__try li { opacity: .86; }
+.proto--plate .proto__try li.proto__try-k, .proto--plate .proto__try li.proto__try-k + li { color: inherit; opacity: 1; }
+.proto__try--row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px 22px; margin-top: 10px; }
+.proto__try.dual__hint { display: block; flex: 1 1 0; min-width: 0; max-width: 21em; margin: 0; font-size: clamp(14.5px, 1.22vw, 18.5px); line-height: 1.32; }
+.proto__try.dual__hint li + li { margin-top: .62em; }
+.proto__try.dual__hint li.proto__try-k { font-size: 1em; }
+@media (max-width: 700px) { .proto__try, .proto__try--row { grid-template-columns: minmax(0, 1fr); } }
+/* below the width a desktop prototype needs, the phone is the only option */
+@media (max-width: 759px) {
+  .proto--dual .seg, .proto--dual .dual__side--web, .proto--dual .dual__cap[data-side="web"] { display: none; }
+  .proto--dual .dual__top { justify-content: flex-end; }
+  .proto--dual .dual__box { aspect-ratio: auto; overflow: visible; background: transparent; box-shadow: none; }
+  .proto--dual .dual__side--app { position: relative; inset: auto; visibility: visible; flex-direction: column; align-items: flex-start; gap: 24px; padding-left: 0; }
+  .proto--dual .dual__phone { align-self: center; height: auto; width: min(100%, 270px); }
+  .proto--dual .dual__cap[data-side="app"] { visibility: visible; }
+  .proto--dual .proto__ctl { display: flex; }
+}
+.layer--r .dual__top, .layer--r .dual__side { visibility: hidden !important; }
+/* ---------- end app or web ---------- */
+/* on the reasoning side the words under a prototype (what it is, what to try, its two buttons) are not shown; their space is kept */
+.layer--r .proto__bar, .layer--r .proto__bar *, .layer--r .proto__try, .layer--r .proto__try * { visibility: hidden !important; }
+/* ---------- stills at one height, and light or dark ----------
+   A row holds web screenshots, padded close-ups and phone frames at one shared height: each item's width
+   follows from its own proportions and padding (--r, --p), and the row's height from the space it has.
+   A phone is a rounded frame with the same 8px around its screen on every side.
+   Where a still has a same-size twin in the other theme, a Light / Dark switch swaps which is shown;
+   both are in the page from the start, so nothing moves. */
+.duo { container-type: inline-size; }
+.duo__row { --H: calc((100cqw - var(--K)) / var(--R)); display: flex; align-items: flex-start; gap: var(--gap, 20px); }
+.duo__i { flex: none; box-sizing: border-box; padding: var(--p, 0px); height: var(--H); width: calc((var(--H) - 2 * var(--p, 0px)) * var(--r) + 2 * var(--p, 0px)); }
+.duo__in { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; }
+.duo__in img, .tw__d { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+.shot--pad > .duo__in { border-radius: 10px; }
+.ph { border-radius: 28px; background: #fff; box-shadow: 0 0 0 1px rgba(11, 11, 12, .16), 0 8px 0 var(--slab-soft); }
+.ph > .duo__in { border-radius: 20px; }
+@media (max-width: 700px) {
+  .duo__row { flex-direction: column; }
+  .duo__i { width: 100%; height: auto; }
+  .duo__i.ph { width: min(100%, 270px); }
+  .duo__in { height: auto; aspect-ratio: var(--r); }
+  /* a row of phones only stays a row, two across */
+  .duo--ph .duo__row { flex-direction: row; flex-wrap: wrap; gap: 14px; }
+  .duo--ph .duo__i.ph { width: calc(50% - 7px); }
+}
+.lt__top { display: flex; align-items: center; min-height: 38px; margin-bottom: 16px; }
+.tw__d { visibility: hidden; }
+.lt[data-on="dark"] .tw__d { visibility: visible; }
+.lt[data-on="dark"] .tw__l { visibility: hidden; }
+.lt[data-on="dark"] .ph { background: #17181b; box-shadow: 0 0 0 1px rgba(11, 11, 12, .55), 0 8px 0 var(--slab-soft); }
+.lt[data-on="dark"] .shot--pad { background: #131416; }
+.lt[data-on="dark"] .hot:hover, .lt[data-on="dark"] .hot:focus-visible, .lt[data-on="dark"] .hot.is-peek, .lt[data-on="dark"] .hot.is-on { box-shadow: 0 0 0 2.5px #fff; }
+.layer--r .lt__top { visibility: hidden; }
+.layer--r .duo__in img { opacity: 0 !important; }
+/* ---------- end stills ---------- */
+
+@media print { .lightbox, .stack__toggle, .hot, .proto__ctl { display: none !important; } }
